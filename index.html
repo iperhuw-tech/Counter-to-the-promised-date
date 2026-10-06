@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<title>22 December 2028 — Countdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Vazirmatn:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%}
+html{overflow-x:hidden}
+body{
+background:#ffffff;
+color:#111111;
+min-height:100vh;
+min-height:100dvh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow-x:hidden;
+font-family:Inter,"Helvetica Neue",Helvetica,Arial,sans-serif;
+-webkit-font-smoothing:antialiased;
+-moz-osx-font-smoothing:grayscale;
+text-rendering:optimizeLegibility;
+}
+.sr-only{
+position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0
+}
+.lang-toggle{
+position:fixed;
+top:calc(26px + env(safe-area-inset-top, 0px));
+inset-inline-end:calc(28px + env(safe-area-inset-right, 0px));
+display:flex;align-items:center;gap:6px;
+font-size:11px;letter-spacing:0.16em;line-height:1;
+user-select:none;z-index:20;
+}
+.lang-toggle button{
+appearance:none;background:none;border:none;
+padding:6px 2px;margin:0;
+font:inherit;font-size:inherit;letter-spacing:inherit;
+color:#111111;cursor:pointer;opacity:0.32;
+transition:opacity 180ms ease;
+-webkit-tap-highlight-color:transparent;
+}
+.lang-toggle button.active{opacity:1;font-weight:500}
+.lang-toggle button:hover{opacity:0.62}
+.lang-toggle button.active:hover{opacity:1}
+.lang-toggle button:focus-visible{outline:1px solid #111111;outline-offset:4px}
+.lang-toggle .sep{opacity:0.18;font-weight:300;padding:0 1px;pointer-events:none}
+.stage{
+width:100%;
+min-height:100vh;
+min-height:100dvh;
+display:flex;align-items:center;justify-content:center;
+padding:calc(48px + env(safe-area-inset-top, 0px)) 20px calc(48px + env(safe-area-inset-bottom, 0px));
+padding-inline-start:calc(20px + env(safe-area-inset-left, 0px));
+padding-inline-end:calc(20px + env(safe-area-inset-right, 0px));
+}
+.countdown{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:26px;
+width:100%;
+max-width:420px;
+transition:opacity 200ms ease;
+will-change:opacity;
+}
+.unit{
+display:flex;
+align-items:baseline;
+justify-content:center;
+gap:18px;
+width:100%;
+}
+.num{
+font-size:clamp(30px, 5.4vh + 12px, 52px);
+font-weight:300;
+line-height:1;
+letter-spacing:-0.035em;
+font-variant-numeric:tabular-nums;
+font-feature-settings:"tnum" 1;
+min-width:2ch;
+text-align:end;
+transition:opacity 180ms ease;
+color:#111111;
+}
+.label{
+font-size:10px;
+letter-spacing:0.18em;
+line-height:1;
+color:#767676;
+font-weight:400;
+text-transform:uppercase;
+white-space:nowrap;
+min-width:96px;
+text-align:start;
+}
+html[lang="fa"] body{font-family:Vazirmatn,Inter,sans-serif}
+html[lang="fa"] .label{
+font-family:Vazirmatn,sans-serif;
+font-size:13px;
+letter-spacing:0;
+text-transform:none;
+font-weight:400;
+min-width:72px;
+}
+html[lang="fa"] .num{
+font-family:Vazirmatn,Inter,sans-serif;
+letter-spacing:-0.01em;
+}
+@media(max-width:640px){
+.lang-toggle{top:calc(20px + env(safe-area-inset-top, 0px));inset-inline-end:calc(18px + env(safe-area-inset-right, 0px));font-size:10px}
+.stage{padding-top:calc(32px + env(safe-area-inset-top, 0px));padding-bottom:calc(32px + env(safe-area-inset-bottom, 0px))}
+.countdown{gap:20px;max-width:320px}
+.unit{gap:14px}
+.num{font-size:clamp(28px, 7.2vh, 38px)}
+.label{font-size:9px;letter-spacing:0.16em;min-width:86px;margin-top:0}
+html[lang="fa"] .label{font-size:12px;min-width:64px}
+}
+@media(max-height:620px){
+.countdown{gap:14px}
+.num{font-size:clamp(24px, 5.5vh, 34px)}
+}
+@media(prefers-reduced-motion:reduce){
+.countdown,.num,.lang-toggle button{transition:none !important}
+}
+</style>
+</head>
+<body>
+<h1 class="sr-only">Countdown to 22 December 2028</h1>
+<div class="lang-toggle" role="group" aria-label="Language selector">
+<button id="btn-en" type="button" lang="en" aria-pressed="true" class="active">EN</button>
+<span class="sep" aria-hidden="true">/</span>
+<button id="btn-fa" type="button" lang="fa" aria-pressed="false">FA</button>
+</div>
+<main class="stage" aria-label="Countdown timer">
+<div id="countdown" class="countdown" dir="ltr" aria-live="polite" aria-atomic="true">
+<div class="unit"><span class="num" data-unit="years">00</span><span class="label">YEARS</span></div>
+<div class="unit"><span class="num" data-unit="months">00</span><span class="label">MONTHS</span></div>
+<div class="unit"><span class="num" data-unit="weeks">00</span><span class="label">WEEKS</span></div>
+<div class="unit"><span class="num" data-unit="days">00</span><span class="label">DAYS</span></div>
+<div class="unit"><span class="num" data-unit="hours">00</span><span class="label">HOURS</span></div>
+<div class="unit"><span class="num" data-unit="minutes">00</span><span class="label">MINUTES</span></div>
+<div class="unit"><span class="num" data-unit="seconds">00</span><span class="label">SECONDS</span></div>
+</div>
+</main>
+<script>
+(function(){
+/* Central configuration — modify target in one place only */
+var TARGET_DATE = "2028-12-22T00:00:00";
+var TARGET = new Date(TARGET_DATE);
+
+var STORAGE_KEY = 'countdown_lang';
+var LABELS = {
+en: ['YEARS','MONTHS','WEEKS','DAYS','HOURS','MINUTES','SECONDS'],
+fa: ['سال','ماه','هفته','روز','ساعت','دقیقه','ثانیه']
+};
+
+var countdownEl = document.getElementById('countdown');
+var numEls = countdownEl.querySelectorAll('.num');
+var labelEls = countdownEl.querySelectorAll('.label');
+var btnEn = document.getElementById('btn-en');
+var btnFa = document.getElementById('btn-fa');
+
+var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var intervalId = null;
+var timeoutId = null;
+var isFinished = false;
+
+function daysInMonth(y,m){ return new Date(y, m+1, 0).getDate(); }
+
+function addMonths(date, n){
+var d = new Date(date.getTime());
+var y = d.getFullYear();
+var m = d.getMonth() + n;
+var targetY = y + Math.floor(m / 12);
+var targetM = ((m % 12) + 12) % 12;
+var dim = daysInMonth(targetY, targetM);
+var day = Math.min(d.getDate(), dim);
+return new Date(targetY, targetM, day, d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+}
+
+function convertNumerals(str, lang){
+if(lang === 'fa'){
+var map = '۰۱۲۳۴۵۶۷۸۹';
+return String(str).replace(/[0-9]/g, function(ch){ return map[ch.charCodeAt(0)-48]; });
+}
+return String(str);
+}
+
+function pad2(n){
+n = Math.max(0, Math.floor(n));
+if(!isFinite(n)) return '00';
+return String(n).padStart(2,'0');
+}
+
+function zeroResult(){
+return {years:0, months:0, weeks:0, days:0, hours:0, minutes:0, seconds:0, isZero:true};
+}
+
+function calculateRemaining(){
+var now = new Date();
+if(isNaN(TARGET.getTime()) || isNaN(now.getTime())) return zeroResult();
+if(now.getTime() >= TARGET.getTime()) return zeroResult();
+
+var cursor = new Date(now.getTime());
+var years = 0;
+while(true){
+var nxtY = addMonths(cursor, 12);
+if(nxtY.getTime() <= TARGET.getTime()){ years++; cursor = nxtY; }
+else break;
+if(years > 30) break;
+}
+var months = 0;
+while(true){
+var nxtM = addMonths(cursor, 1);
+if(nxtM.getTime() <= TARGET.getTime()){ months++; cursor = nxtM; }
+else break;
+if(months > 36) break;
+}
+var diff = TARGET.getTime() - cursor.getTime();
+if(!(diff > 0)) diff = 0;
+var totalDays = Math.floor(diff / 86400000);
+var weeks = Math.floor(totalDays / 7);
+var days = totalDays % 7;
+diff -= totalDays * 86400000;
+var hours = Math.floor(diff / 3600000);
+diff %= 3600000;
+var minutes = Math.floor(diff / 60000);
+diff %= 60000;
+var seconds = Math.floor(diff / 1000);
+if(!isFinite(years)) years = 0;
+if(!isFinite(months)) months = 0;
+return {years:years, months:months, weeks:weeks, days:days, hours:hours, minutes:minutes, seconds:seconds, isZero:false};
+}
+
+var currentLang = 'en';
+try{
+var s = localStorage.getItem(STORAGE_KEY);
+if(s === 'en' || s === 'fa') currentLang = s;
+}catch(e){}
+
+var lastVals = null;
+
+function updateDOM(values, force){
+for(var i=0;i<values.length;i++){
+var str = convertNumerals(pad2(values[i]), currentLang);
+var el = numEls[i];
+if(force || !lastVals || lastVals[i] !== str){
+if(!force && lastVals && !reduceMotion){
+el.style.opacity = '0.25';
+(function(elem, text){
+setTimeout(function(){ elem.textContent = text; elem.style.opacity = '1'; }, 90);
+})(el, str);
+} else {
+el.textContent = str;
+el.style.opacity = '1';
+}
+}
+}
+lastVals = values.map(function(v){ return convertNumerals(pad2(v), currentLang); });
+}
+
+function handleZeroState(){
+isFinished = true;
+if(intervalId){ clearInterval(intervalId); intervalId = null; }
+if(timeoutId){ clearTimeout(timeoutId); timeoutId = null; }
+}
+
+function render(force){
+var r = calculateRemaining();
+var vals = [r.years, r.months, r.weeks, r.days, r.hours, r.minutes, r.seconds];
+updateDOM(vals, force);
+if(r.isZero) handleZeroState();
+return r;
+}
+
+function updateLabels(){
+for(var i=0;i<labelEls.length;i++){
+labelEls[i].textContent = LABELS[currentLang][i];
+labelEls[i].setAttribute('lang', currentLang);
+}
+}
+
+function applyLang(lang, animate){
+currentLang = (lang === 'fa') ? 'fa' : 'en';
+try{ localStorage.setItem(STORAGE_KEY, currentLang); }catch(e){}
+document.documentElement.lang = currentLang;
+document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
+countdownEl.setAttribute('dir','ltr');
+btnEn.classList.toggle('active', currentLang === 'en');
+btnFa.classList.toggle('active', currentLang === 'fa');
+btnEn.setAttribute('aria-pressed', currentLang === 'en' ? 'true' : 'false');
+btnFa.setAttribute('aria-pressed', currentLang === 'fa' ? 'true' : 'false');
+
+var doUpdate = function(){
+updateLabels();
+lastVals = null;
+if(!isFinished) render(true);
+else updateDOM([0,0,0,0,0,0,0], true);
+countdownEl.style.opacity = '1';
+};
+if(animate && !reduceMotion){
+countdownEl.style.opacity = '0';
+setTimeout(doUpdate, 180);
+} else {
+countdownEl.style.opacity = '1';
+doUpdate();
+}
+}
+
+function startTimer(){
+if(intervalId){ clearInterval(intervalId); intervalId = null; }
+if(timeoutId){ clearTimeout(timeoutId); timeoutId = null; }
+if(isFinished) return;
+var r = render(false);
+if(r.isZero) return;
+var now0 = new Date();
+var msToNext = 1000 - now0.getMilliseconds();
+if(msToNext <= 0 || msToNext > 1000) msToNext = 1000;
+if(reduceMotion){
+intervalId = setInterval(function(){ render(false); }, 1000);
+} else {
+timeoutId = setTimeout(function(){
+timeoutId = null;
+if(isFinished) return;
+render(false);
+if(isFinished) return;
+intervalId = setInterval(function(){ render(false); }, 1000);
+}, msToNext);
+}
+}
+
+btnEn.addEventListener('click', function(){ if(currentLang !== 'en') applyLang('en', true); });
+btnFa.addEventListener('click', function(){ if(currentLang !== 'fa') applyLang('fa', true); });
+
+document.addEventListener('visibilitychange', function(){
+if(!document.hidden && !isFinished) render(false);
+});
+
+applyLang(currentLang, false);
+startTimer();
+})();
+</script>
+</body>
+</html>
